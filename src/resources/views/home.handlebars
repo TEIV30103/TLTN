@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/home.css">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    <script src="/js/gameCaro.js"></script>
+    {{!-- <script src="/js/botCaro.js"></script> --}}
+    <script src="/js/home.js"></script>
+</head>
+<body>
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card mb-3">
+                    <div id="danhSachUserSpan" class="card-header">
+                        <h5 >Danh Sách Online</h5>
+                    </div>
+                    <div id="danhSachUserOnline" class="list-group" style="height: 60vh;">
+                        
+                    </div>
+                </div>
+                
+                <div class="card mb-3">
+                    <div id="xepHangSpan" class="card-header">
+                        <h5>Xếp Hạng</h5>
+                    </div>
+                    <div id="xepHang" lass="card-body" style="height: 60vh;">
+                        <ul class="list-group">
+                            <li class="list-group-item">Người chơi 1: 100 điểm</li>
+                            <li class="list-group-item">Người chơi 2: 80 điểm</li>
+                            <!-- Thêm các mục xếp hạng khác -->
+                        </ul>
+                    </div>
+                </div>
+
+                <div id="chatTongHeight" class="card d-flex flex-column" style="height: 48vh; width: 46vh">
+                    <div id="chatTongSpan" class="card-header">
+                        <h5>Chat Tổng</h5>
+                    </div>
+                    <div id="chatTongF" class="card-body d-flex flex-column p-0" style="flex: 1; overflow: hidden;">
+                        <div id="chatTong" class="p-3" style="flex: 1; overflow-y: auto;"></div>
+                        <div class="input-group p-2 border-top">
+                            <input type="text" class="form-control" id="inputChatTong" placeholder="Nhập tin nhắn">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" id="btnGuiChatTong">Gửi</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="col-md-9">
+                <div id="menuPhong">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <button class="btn btn-success" id="btnTaoPhong">
+                            <span>
+                                Tạo phòng
+                            </span>
+                        </button>
+                        <input type="text" class="form-control" id="tenPhong" placeholder="Tên phòng">
+                    </div>
+                    <div id="danhSachPhong" class="list-group mb-3">
+                </div>
+                    
+                </div>
+                <div id="phong" >  {{!-- class="d-flex" --}}
+                    <div id="hangCho" class="rightPhong flex-fill border p-2 d-flex flex-column">
+                        <div id="thongTinPhong" class="d-flex justify-content-between align-items-center p-3 bg-light rounded mb-3">
+                            <div class="d-flex gap-3">
+                                <p id="soPhongTTP" class="h6 mb-0">Phòng: </p>
+                                &emsp;
+                                <p id="tenPhongTTP" class="h6 mb-0">Tên phòng: </p>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <button class="btn btn-primary" id="btnThemBot">Thêm Bot</button>
+                                &emsp;
+                                <button class="btn btn-success" style="width: 15vh;" id="btnSanSang">Sẵn Sàng</button>
+                                <button class="btn btn-warning" style="width: 15vh;" id="btnHuy">Huỷ</button>
+                                &emsp;
+                                <button class="btn btn-danger" id="btnRoiPhong">Rời Phòng</button>
+                            </div>
+                        </div>
+                        <div id="danhSachUser" class="mb-2">
+                            <p>Người chơi 1: <span id="user1">...</span></p>
+                            <p>Người chơi 2: <span id="user2">...</span></p>
+                        </div>
+                        <div class="d-flex flex-column flex-grow-1">
+                            <div id="khungChat" class="border p-2 mb-2 flex-grow-1" style="height: 50vh; overflow-y: auto;" ></div>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="chatPhong" placeholder="Nhập tin nhắn">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" id="btnGuiChatPhong">Gửi</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div id="game" class="leftPhong flex-fill border p-2">
+                        <table id="banCo" class="table table-bordered border-dark mx-auto" style="width: auto;">
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            {{#if username}}
+                socket.emit("username","{{username}}")
+            {{/if}}
+        })
+    </script>
+</body>
+</html>

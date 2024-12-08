@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/game.css">
+    <script src="/js/game.js"></script>
+    <script src="/js/menu.js"></script> 
+</head>
+<body>
+    <div id="menu" class="menu">
+        <div class="menu-item"><ion-icon name="person-outline"></ion-icon></div>
+        <div class="menu-item"><ion-icon name="chatbubble-outline"></ion-icon></div>
+        <div class="menu-item"><ion-icon name="mail-outline"></ion-icon></div>
+        <div class="menu-item"><ion-icon name="videocam-outline"></ion-icon></div>
+        <div class="menu-item" id="home-icon"><ion-icon name="home-outline"></ion-icon></div>
+        <div class="center-icon"><ion-icon name="add-outline"></ion-icon></div>
+    </div>
+    
+    
+    <div>
+        <div id="left">
+            <div>
+                <span>Danh Sách Online</span>
+                <div id="danhSachUserOnline">\
+                    
+                </div>
+            </div>
+            <div>
+                <span>Chat Tổng</span>
+            </div>
+        </div>
+        <div id="right">
+            <div id="game">
+        
+            </div>
+        </div>
+    </div>
+    
+</body>
+<script>
+    $(document).ready(function(){
+        {{#if username}}
+            console.log("{{username}}")
+            socket.emit("username","{{username}}")
+        {{/if}}
+    })
+</script>
+</html>

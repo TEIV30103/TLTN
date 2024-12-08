@@ -1,0 +1,11 @@
+socket.on lắng nghe
+socket.emit là gửi lại chính người gửi
+io.sockets.emit là gửi lại tất cả người dùng
+socket.broadcast.emit là gửi tất cả người dùng ngoại trừ người gửi
+
+io.to("socketid").emit gửi tới socketid va cung nhu den 1 room
+
+socket.adapter.rooms là những phòng tồn tại có thể dùng console.log() để show những phòng ra 
+socket.join("tên phòng") là sẽ join vào trong phòng 
+socket.leave("") .....
+socket.to(room).emit(...) gửi đi tất cả trừ người gửi

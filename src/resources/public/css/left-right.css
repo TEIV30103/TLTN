@@ -1,0 +1,111 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* display: flex; */
+}
+
+#left {
+    width: 20%; /* Chiều rộng của div bên trái */
+    height: 87vh;
+    background-color: #f0f0f0; /* Màu nền cho div bên trái */
+    padding: 20px; /* Khoảng cách bên trong */
+    border-right: 1px solid #ccc; /* Đường viền bên phải */
+    float: left;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ cho div */
+}
+
+#right {
+    width: 70%; /* Chiều rộng của div bên phải */
+    height: 87vh;
+    padding: 20px; /* Khoảng cách bên trong */
+    float: right;
+}
+
+
+#left div{
+    margin-bottom: 10px;
+}
+
+#danhSachUser span {
+    display: block; /* Hiển thị các span thành block */
+    margin-bottom: 10px; /* Khoảng cách giữa các span */
+    font-weight: bold; /* Đậm chữ */
+    color: #333; /* Màu chữ */
+}
+
+#danhSachUserOnline {
+    margin-top: 10px; /* Khoảng cách trên danh sách người dùng online */
+    padding: 10px; /* Khoảng cách bên trong */
+    height:75vh;
+    background-color: #ffffff; /* Màu nền cho danh sách người dùng */
+    border-radius: 5px; /* Bo góc cho danh sách người dùng */
+    border: 1px solid #ccc; /* Đường viền cho danh sách người dùng */
+    overflow-y: auto;
+}
+
+#inputChatTong {
+    width: calc(100% - 100px); /* Chiều rộng chiếm toàn bộ chiều rộng trừ nút gửi */
+    padding: 10px; /* Khoảng cách bên trong */
+    border: 1px solid #ccc; /* Đường viền */
+    border-radius: 5px; /* Bo góc */
+    font-size: 16px; /* Kích thước chữ */
+    margin-right: 10px; /* Khoảng cách bên phải */
+}
+
+#btnGuiChatTong {
+    padding: 10px 15px; /* Khoảng cách bên trong */
+    background-color: #4CAF50; /* Màu nền cho nút */
+    color: white; /* Màu chữ */
+    border: none; /* Không có đường viền */
+    border-radius: 5px; /* Bo góc */
+    cursor: pointer; /* Con trỏ khi di chuột */
+    font-size: 16px; /* Kích thước chữ */
+}
+
+#btnGuiChatTong:hover {
+    background-color: #45a049; /* Màu nền khi di chuột qua nút */
+}
+
+#chatTong {
+    height: 60vh; /* Chiều cao của khung chat */
+    border: 1px solid black; /* Đường viền */
+    border-radius: 10px; /* Bo góc */
+    margin-bottom: 10px; /* Khoảng cách dưới */
+    padding: 8px; /* Khoảng cách bên trong */
+    background-color: #ffffff; /* Màu nền cho khung chat */
+    overflow-y: auto; /* Cuộn dọc khi nội dung vượt quá chiều cao */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Đổ bóng nhẹ cho khung chat */
+}
+
+/* Tùy chỉnh thanh cuộn cho Chrome, Safari và Edge */
+#chatTong::-webkit-scrollbar {
+    width: 8px; /* Độ rộng của thanh cuộn */
+}
+
+#chatTong::-webkit-scrollbar-track {
+    background: #f1f1f1; /* Màu nền của thanh cuộn */
+    border-radius: 10px; /* Bo góc cho thanh cuộn */
+}
+
+#chatTong::-webkit-scrollbar-thumb {
+    background: #888; /* Màu của thanh cuộn */
+    border-radius: 10px; /* Bo góc cho thanh cuộn */
+    height: 30px; /* Chiều cao của thanh cuộn (giảm độ dài) */
+}
+
+#chatTong::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Màu của thanh cuộn khi di chuột qua */
+}
+
+
+
+#chatTongSpan{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    /* height: 75vh; */
+    transition: all 1s ease;
+    margin-bottom: 10px;
+}
