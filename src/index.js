@@ -2,7 +2,7 @@ const path = require('path')
 const express = require('express')
 const session = require('express-session');
 const morgan = require('morgan')
-const handlebars = require('express-handlebars')
+const handlebars = require('express-handlebars');
 const http = require('http')
 
 const route = require('./resources/routes')
@@ -27,9 +27,13 @@ app.use(express.static(path.join(__dirname,'resources/public')))
 
 app.use(morgan('combined'))
 
-app.engine('handlebars', handlebars.engine());
+app.engine('handlebars', handlebars.engine({
+    helpers: {
+        eq: function(a, b) { return a == b; }
+    }
+}));
 app.set('view engine', 'handlebars');
-app.set('views',path.join(__dirname,'resources/views'))
+app.set('views', path.join(__dirname, 'resources/views'))
 
 route(app)
 socket(io)

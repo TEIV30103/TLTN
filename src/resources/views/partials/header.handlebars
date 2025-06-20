@@ -1,12 +1,72 @@
-<header style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background-color: #f8f9fa; border-bottom: 1px solid #dee2e6;">
-    <span>CHESS ONL:</span>
-
-    <button id="btnDangXuat">Đăng Xuất</button>
+<header style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background-color: #f8f9fa; border-bottom: 1px solid #dee2e6; margin-top: -5px;">
+    <span id="logo">CHESS ONL:</span>
+    
+    <div id="khung" class="outer-frame-avatar" style="display: none;">
+        <img id="avatar" src="/img/avatar/1.jpg"  class="inner-img-avatar" alt="Avatar">
+    </div>
+    <ul id="menuAvatar" class="avatar-menu" style="display: none;">
+        <li id="liAdmin">
+            <button id="btnAdmin">Admin</button>
+        </li>
+        <li>
+            <button id="btnDADD">Thông tin cá nhân</button>
+            {{!-- <button id="btnDADD">Đổi ảnh đại diện</button> --}}
+        </li>
+        <li>
+            <button id="btnDangXuat">Đăng Xuất</button>
+        </li>
+    </ul>
+    
 </header>
 <script>
     $(document).ready(function(){
+        $("#khung").hide();
+        $("#liAdmin").hide();
+        $("#btnDangXuat").hide();
+        $("#menuAvatar").hide();
+
+        $("#logo").click(function(){
+            window.location.replace("/")
+        })
+
+        $("#btnDADD").click(function(){
+            window.location.replace("/cuaHang")
+        })
+
         $("#btnDangXuat").click(function(){
+            $('#menuAvatar').hide(); 
+            $("#khung").hide();
+            $("#btnDangXuat").hide();
             window.location.replace("/dangXuat")
         })
+
+        $('#khung').click(function () {
+            $('#menuAvatar').slideToggle(200);
+        });
+
+
+        $(document).click(function (e) {
+            if (!$(e.target).closest('#khung').length) {
+                $('#menuAvatar').hide(200);  
+            }
+        });
+
+        {{#if imgAvt}}
+            $("#avatar").attr("src", "/img/avatar/{{imgAvt}}");
+            $("#avatar").show();
+        {{/if}}
+
+        {{#if imgKhung}}
+            $("#khung").css("background-image", "url('../img/KHUNG/{{imgKhung}}')");
+            $("#khung").show();
+            $("#btnDangXuat").show();
+        {{/if}}
+
+        {{#if (eq quyen 0)}}
+            $("#liAdmin").show();
+            $("#btnAdmin").click(function(){
+                window.location.replace("/admin")
+            })
+        {{/if}}
     })
 </script>

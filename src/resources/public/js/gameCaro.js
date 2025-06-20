@@ -1,13 +1,16 @@
 class Caro{
-    constructor(){
-        this.row = 9;
-        this.col = 9;
+    constructor(id = "banCo"){
+        this.row = 10;
+        this.col = 10;
         this.arr = [];
         this.khaiBaoArr();
-        this.veBanCo();
+        this.veBanCo(id);
         this.EmptyArr();
+        this.valueOBanCo(id);
         this.luot = null;
-        this.value_Nguoi = null; // 0 : rong,  1: X ,  2:O
+        this.value_Nguoi = 1;
+        this.gameOver = false;
+        this.id = null;
     }
     khaiBaoArr(){
         for (let i = 0; i < this.row; i++){
@@ -25,17 +28,27 @@ class Caro{
             }
         }
     }
-    veBanCo(){
+    fullArr(){
+        for (let i = 0; i < this.row; i++){
+            for (let j = 0; j < this.col; j++){
+                if (this.arr[i][j] == 0){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+    veBanCo(id){
 
         for(let i = 0; i < this.row; i++){
             var tr = document.createElement("tr");
             for (let j = 0; j < this.col; j++){
                 var td = document.createElement("td");
-                td.setAttribute("id",i.toString() + j.toString());
-                td.setAttribute('class', 'p-3 border border-dark');
-                td.setAttribute('style', 'width: 20px; height: 20px; cursor: pointer;');
+                td.setAttribute("id",id+i.toString() + j.toString());
+                td.setAttribute('class', 'p-3 border border-dark ');
+                td.setAttribute('style', 'max-width: 20px; max-height: 20px; cursor: pointer; overflow: hidden;');
                 td.addEventListener("click",()=>{
-                    if (this.luot == true ){ // && soNguoiSS == 2
+                    if (this.luot == true && !this.gameOver){ // && soNguoiSS == 2
                         if ( this.arr[i][j] != 0){
                             alert("Ô này đã được đánh rồi");
                         }
@@ -52,43 +65,56 @@ class Caro{
                                 j: j
                             };
                             // console.log(a)
-                            socket.emit("user-danh-co",a);
+                            if(phongDangO == null){
+                                // console.log(this.id)
+                                socket.emit("user-danh-co",[a,this.id]);
+                            }
+                            else{
+                                socket.emit("user-danh-co",[a,phongDangO]);
+                            }
 
                         }
                     }
                 })
                 tr.appendChild(td);
             }
-            document.getElementById("banCo").appendChild(tr);
+            document.getElementById(id).appendChild(tr);
         }
     }
-    valueOBanCo(){
+    valueOBanCo(id = "banCo"){
         var i1 =0;
         for (let i = 0; i < this.row; i++){
             for (let j = 0; j < this.col; j++){
                 if (this.arr[i][j] != 0){
                     i1 =1;
                     if (this.arr[i][j] == 1){
-                        document.getElementById(i.toString() + j.toString()).innerText ="X";
-                        document.getElementById(i.toString() + j.toString()).style.color ="red";
+                        $("#"+id+i.toString() + j.toString()).attr("style", "background-image: url('/img/BC/"+quanX+"'); background-size: cover; background-position: center;")
                     }
                     else{
-                        document.getElementById(i.toString() + j.toString()).innerText ="O";
-                        document.getElementById(i.toString() + j.toString()).style.color ="blue";
+                        $("#"+id+i.toString() + j.toString()).attr("style", "background-image: url('/img/BC/"+quanO+"'); background-size: cover; background-position: center;")
                     }
                 }
             }
         }
         return i1;
     }
-    checkWinGame(i,j){
+    checkWinGame(i,j,id = "banCo"){
         if (this.checkDoc(i,j) >= 5 || this.checkNgang(i,j) >= 5 || this.checkCheoPhai(i,j) >= 5 || this.checkCheoTrai(i,j) >= 5){
-            if(this.luot == false){
-                console.log("win")
-                socket.emit("Win-game",this.value_Nguoi);
-                // handleGameEnd(this.arr[i][j]);
-                return true;
+            if( id == "banCo" ){
+                // if (this.luot == false){
+                    // console.log("win")
+                    // socket.emit("Win-game",this.value_Nguoi);
+                    // console.log("Win-game",this.arr[i][j]);
+                    winGame(this.arr[i][j]);
+                    this.gameOver = true;
+                    return true;
+                // }
             }
+        }
+        if(this.fullArr()){
+            this.gameOver = true;
+            $("#thongBao").html("Trận đấu hòa");
+            $("#thongBao").css("color","blue")
         }
         return false;
     }

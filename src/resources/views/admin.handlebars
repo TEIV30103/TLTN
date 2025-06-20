@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang Quản Trị Admin</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            background: #f8f9fa;
+            height: 90vh;
+            overflow: hidden;
+        }
+        .admin-sidebar {
+            min-height: 100vh;
+            background: #343a40;
+            color: #fff;
+        }
+        .admin-sidebar a {
+            color: #fff;
+            text-decoration: none;
+        }
+        .admin-sidebar a.active, .admin-sidebar a:hover {
+            background: #495057;
+            border-radius: 5px;
+        }
+        .admin-header {
+            background: #fff;
+            padding: 1rem;
+            border-bottom: 1px solid #dee2e6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav class="col-md-2 d-none d-md-block admin-sidebar p-3">
+                <h4 class="mb-4"><i class="fas fa-user-shield"></i> Admin</h4>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2">
+                        <a class="nav-link active" href="#" data-url="/admin/users-partial"><i class="fas fa-users"></i> Quản lý người dùng</a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a class="nav-link" href="#" data-url="/admin/avatars-partial"><i class="fas fa-image"></i> Quản lý Avatar</a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a class="nav-link" href="#" data-url="/admin/khung-partial"><i class="fas fa-border-style"></i> Quản lý Khung</a>
+                    </li>
+                    <li class="nav-item mb-2">
+                        <a class="nav-link" href="#" data-url="/admin/quanco-partial"><i class="fas fa-chess"></i> Quản lý Quân cờ</a>
+                    </li>
+                    {{!-- <li class="nav-item mb-2">
+                        <a class="nav-link" href="#"><i class="fas fa-trophy"></i> Xem BXH</a>
+                    </li> --}}
+                    <li class="nav-item mt-4">
+                        <a class="nav-link" href="/dangXuat"><i class="fas fa-sign-out-alt"></i> Thoát</a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- Main content -->
+            <main class="col-md-10 ms-sm-auto px-4">
+                <div class="admin-header d-flex justify-content-between align-items-center">
+                    <h2>Trang Quản Trị</h2>
+                    <span>Xin chào, Admin!</span>
+                </div>
+                <div class="mt-4" id="admin-content" style="height: 80vh; overflow-y: scroll;">
+                    <div class="alert alert-info text-center">
+
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+    
+    <!-- Modal sửa user -->
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form id="editUserForm" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Sửa người dùng</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="editUserId">
+        <div class="mb-3">
+          <label class="form-label">Tài khoản</label>
+          <input type="text" class="form-control" id="editUserTaiKhoan" readonly>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Họ tên</label>
+          <input type="text" class="form-control" id="editUserTen" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Quyền</label>
+          <select class="form-select" id="editUserQuyen">
+            <option value="0">Admin</option>
+            <option value="1">User</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Trạng thái</label>
+          <select class="form-select" id="editUserKhoa">
+            <option value="0">Hoạt động</option>
+            <option value="1">Đã khóa</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Mật khẩu</label>
+          <input type="password" class="form-control" id="editUserMatKhau" placeholder="******">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Lưu</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal sửa avatar -->
+<div class="modal fade" id="editAvatarModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form id="editAvatarForm" class="modal-content" enctype="multipart/form-data">
+      <div class="modal-header">
+        <h5 class="modal-title">Sửa Avatar</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="editAvatarId">
+        <div class="mb-3">
+          <label class="form-label">Chọn ảnh mới</label>
+          <input type="file" class="form-control" id="editAvatarFile" accept="image/*" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Lưu</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal sửa khung -->
+<div class="modal fade" id="editKhungModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form id="editKhungForm" class="modal-content" enctype="multipart/form-data">
+      <div class="modal-header">
+        <h5 class="modal-title">Sửa Khung</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="editKhungId">
+        <div class="mb-3">
+          <label class="form-label">Chọn ảnh khung mới</label>
+          <input type="file" class="form-control" id="editKhungFile" accept="image/*" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Lưu</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal thêm user -->
+<div class="modal fade" id="addUserModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form id="addUserForm" class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Thêm người dùng</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Tài khoản</label>
+          <input type="text" class="form-control" id="addUserTaiKhoan" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Họ tên</label>
+          <input type="text" class="form-control" id="addUserTen" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Mật khẩu</label>
+          <input type="password" class="form-control" id="addUserMatKhau" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Quyền</label>
+          <select class="form-select" id="addUserQuyen">
+            <option value="0">Admin</option>
+            <option value="1">User</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Trạng thái</label>
+          <select class="form-select" id="addUserKhoa">
+            <option value="0">Hoạt động</option>
+            <option value="1">Đã khóa</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Thêm</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal thêm avatar -->
+<div class="modal fade" id="addAvatarModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form id="addAvatarForm" class="modal-content" enctype="multipart/form-data">
+      <div class="modal-header">
+        <h5 class="modal-title">Thêm Avatar</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Chọn ảnh</label>
+          <input type="file" class="form-control" id="addAvatarFile" accept="image/*" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Thêm</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal thêm khung -->
+<div class="modal fade" id="addKhungModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form id="addKhungForm" class="modal-content" enctype="multipart/form-data">
+      <div class="modal-header">
+        <h5 class="modal-title">Thêm Khung</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Chọn ảnh khung</label>
+          <input type="file" class="form-control" id="addKhungFile" accept="image/*" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Thêm</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal thêm quân cờ -->
+<div class="modal fade" id="addQuancoModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form id="addQuancoForm" class="modal-content" enctype="multipart/form-data">
+      <div class="modal-header">
+        <h5 class="modal-title">Thêm Quân Cờ</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Ảnh quân X</label>
+          <input type="file" name="imgX" class="form-control" accept="image/*" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Ảnh quân O</label>
+          <input type="file" name="imgO" class="form-control" accept="image/*" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Thêm</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal sửa quân cờ -->
+<div class="modal fade" id="editQuancoModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <form id="editQuancoForm" class="modal-content" enctype="multipart/form-data">
+      <div class="modal-header">
+        <h5 class="modal-title">Sửa quân cờ</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="editQuancoId">
+        <div class="mb-3">
+          <label>Ảnh quân X mới</label>
+          <input type="file" name="imgX" class="form-control" accept="image/*" required>
+        </div>
+        <div class="mb-3">
+          <label>Ảnh quân O mới</label>
+          <input type="file" name="imgO" class="form-control" accept="image/*" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Lưu</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(function(){
+            // Khi click vào menu
+            $('.admin-sidebar a').click(function(e){
+                let url = $(this).data('url');
+                if(url){
+                    e.preventDefault();
+                    $('.admin-sidebar a').removeClass('active');
+                    $(this).addClass('active');
+                    $('#admin-content').html('<div class="text-center my-5"><div class="spinner-border"></div></div>');
+                    $.get(url, function(data){
+                        $('#admin-content').html(data);
+                    });
+                }
+                // Nếu không có data-url (ví dụ: Thoát), không ngăn mặc định
+            });
+        });
+
+        $(document).on('click', '.btn-delete', function() {
+            if(confirm('Bạn chắc chắn muốn xóa user này?')) {
+                const id = $(this).closest('tr').data('id');
+                $.ajax({
+                    url: '/admin/user/' + id,
+                    type: 'DELETE',
+                    success: function(res) {
+                        // Reload lại bảng user
+                        $('[data-url="/admin/users-partial"]').click();
+                    },
+                    error: function() {
+                        alert('Xóa thất bại!');
+                    }
+                });
+            }
+        });
+
+        // Sửa user (ví dụ: chỉ sửa tên, bạn có thể mở rộng)
+        $(document).on('click', '.btn-edit', function() {
+            const $row = $(this).closest('tr');
+            const id = $row.data('id');
+            const taiKhoan = $row.find('td:eq(0)').text();
+            const ten = $row.find('td:eq(1)').text();
+            const quyen = $row.find('td:eq(2)').find('span').length ? 1 : 0;
+            const khoa = $row.find('td:eq(3)').find('span').length ? 1 : 0;
+
+            $('#editUserId').val(id);
+            $('#editUserTaiKhoan').val(taiKhoan);
+            $('#editUserTen').val(ten);
+            $('#editUserQuyen').val(quyen);
+            $('#editUserKhoa').val(khoa);
+            $('#editUserMatKhau').val('******'); // Luôn hiển thị ẩn
+
+            var modal = new bootstrap.Modal(document.getElementById('editUserModal'));
+            modal.show();
+        });
+
+        // Gửi AJAX khi submit form sửa
+        $('#editUserForm').submit(function(e){
+            e.preventDefault();
+            const id = $('#editUserId').val();
+            let matKhau = $('#editUserMatKhau').val();
+            if(matKhau === '******') matKhau = ''; // Không đổi mật khẩu
+
+            $.ajax({
+                url: '/admin/user/' + id,
+                type: 'PUT',
+                data: {
+                    ten: $('#editUserTen').val(),
+                    matKhau: matKhau,
+                    quyen: $('#editUserQuyen').val(),
+                    khoa: $('#editUserKhoa').val()
+                },
+                success: function(res) {
+                    $('#editUserModal').modal('hide');
+                    $('[data-url="/admin/users-partial"]').click();
+                },
+                error: function() {
+                    alert('Sửa thất bại!');
+                }
+            });
+        });
+
+        // Xóa avatar
+        $(document).on('click', '.btn-delete-avatar', function() {
+            if(confirm('Bạn có chắc muốn xóa avatar này?')) {
+                const id = $(this).closest('tr').data('id');
+                $.ajax({
+                    url: '/admin/avatar/' + id,
+                    type: 'DELETE',
+                    success: function() {
+                        $('[data-url="/admin/avatars-partial"]').click();
+                    },
+                    error: function() {
+                        alert('Xóa thất bại!');
+                    }
+                });
+            }
+        });
+
+        // Xóa khung
+        $(document).on('click', '.btn-delete-khung', function() {
+            if(confirm('Bạn có chắc muốn xóa khung này?')) {
+                const id = $(this).closest('tr').data('id');
+                $.ajax({
+                    url: '/admin/khung/' + id,
+                    type: 'DELETE',
+                    success: function() {
+                        $('[data-url="/admin/khung-partial"]').click();
+                    },
+                    error: function() {
+                        alert('Xóa thất bại!');
+                    }
+                });
+            }
+        });
+
+        // Xóa quân cờ
+        $(document).on('click', '.btn-delete-quanco', function() {
+            if(confirm('Bạn có chắc muốn xóa quân cờ này?')) {
+                const id = $(this).closest('tr').data('id');
+                $.ajax({
+                    url: '/admin/quanco/' + id,
+                    type: 'DELETE',
+                    success: function() {
+                        $('[data-url="/admin/quanco-partial"]').click();
+                    },
+                    error: function() {
+                        alert('Xóa thất bại!');
+                    }
+                });
+            }
+        });
+
+        // Sửa avatar (ví dụ: chỉ sửa tên, bạn có thể mở rộng)
+        $(document).on('click', '.btn-edit-avatar', function() {
+            const id = $(this).closest('tr').data('id');
+            $('#editAvatarId').val(id);
+            $('#editAvatarFile').val('');
+            var modal = new bootstrap.Modal(document.getElementById('editAvatarModal'));
+            modal.show();
+        });
+
+        // Submit form sửa avatar
+        $('#editAvatarForm').submit(function(e){
+            e.preventDefault();
+            const id = $('#editAvatarId').val();
+            const file = $('#editAvatarFile')[0].files[0];
+            if(!file) return alert('Vui lòng chọn ảnh!');
+            let formData = new FormData();
+            formData.append('avatarSua', file);
+            $.ajax({
+                url: '/admin/avatar/' + id,
+                type: 'PUT',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(res) {
+                    $('#editAvatarModal').modal('hide');
+                    $('[data-url="/admin/avatars-partial"]').click();
+                },
+                error: function() {
+                    alert('Sửa thất bại!');
+                }
+            });
+        });
+
+        // Khi bấm Sửa khung
+        $(document).on('click', '.btn-edit-khung', function() {
+            const id = $(this).closest('tr').data('id');
+            $('#editKhungId').val(id);
+            $('#editKhungFile').val('');
+            var modal = new bootstrap.Modal(document.getElementById('editKhungModal'));
+            modal.show();
+        });
+
+        // Submit form sửa khung
+        $('#editKhungForm').submit(function(e){
+            e.preventDefault();
+            const id = $('#editKhungId').val();
+            const file = $('#editKhungFile')[0].files[0];
+            if(!file) return alert('Vui lòng chọn ảnh!');
+            let formData = new FormData();
+            formData.append('khung', file);
+            $.ajax({
+                url: '/admin/khung/' + id,
+                type: 'PUT',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(res) {
+                    $('#editKhungModal').modal('hide');
+                    $('[data-url="/admin/khung-partial"]').click();
+                },
+                error: function() {
+                    alert('Sửa thất bại!');
+                }
+            });
+        });
+
+        // Mở modal thêm user
+        $(document).on('click', '#btnAddUser', function() {
+            $('#addUserForm')[0].reset();
+            var modal = new bootstrap.Modal(document.getElementById('addUserModal'));
+            modal.show();
+        });
+
+        // Submit form thêm user
+        $('#addUserForm').submit(function(e){
+            e.preventDefault();
+            $.ajax({
+                url: '/admin/user',
+                type: 'POST',
+                data: {
+                    taiKhoan: $('#addUserTaiKhoan').val(),
+                    ten: $('#addUserTen').val(),
+                    matKhau: $('#addUserMatKhau').val(),
+                    quyen: $('#addUserQuyen').val(),
+                    khoa: $('#addUserKhoa').val()
+                },
+                success: function(res) {
+                    $('#addUserModal').modal('hide');
+                    $('[data-url="/admin/users-partial"]').click();
+                },
+                error: function() {
+                    alert('Thêm thất bại!');
+                }
+            });
+        });
+
+        // Mở modal thêm avatar
+        $(document).on('click', '#btnAddAvatar', function() {
+            $('#addAvatarForm')[0].reset();
+            var modal = new bootstrap.Modal(document.getElementById('addAvatarModal'));
+            modal.show();
+        });
+
+        // Submit form thêm avatar
+        $('#addAvatarForm').submit(function(e){
+            e.preventDefault();
+            let formData = new FormData();
+            formData.append('avatar', $('#addAvatarFile')[0].files[0]);
+            $.ajax({
+                url: '/admin/avatar',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(res) {
+                    $('#addAvatarModal').modal('hide');
+                    $('[data-url="/admin/avatars-partial"]').click();
+                },
+                error: function() {
+                    alert('Thêm thất bại!');
+                }
+            });
+        });
+
+        // Mở modal thêm khung
+        $(document).on('click', '#btnAddKhung', function() {
+            $('#addKhungForm')[0].reset();
+            var modal = new bootstrap.Modal(document.getElementById('addKhungModal'));
+            modal.show();
+        });
+
+        // Submit form thêm khung
+        $('#addKhungForm').submit(function(e){
+            e.preventDefault();
+            let formData = new FormData();
+            formData.append('khung', $('#addKhungFile')[0].files[0]);
+            $.ajax({
+                url: '/admin/khung',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(res) {
+                    $('#addKhungModal').modal('hide');
+                    $('[data-url="/admin/khung-partial"]').click();
+                },
+                error: function() {
+                    alert('Thêm thất bại!');
+                }
+            });
+        });
+
+        // Mở modal thêm quân cờ
+        $(document).on('click', '#btnAddQuanco', function() {
+            $('#addQuancoForm')[0].reset();
+            var modal = new bootstrap.Modal(document.getElementById('addQuancoModal'));
+            modal.show();
+        });
+
+        // Submit form thêm quân cờ
+        $('#addQuancoForm').submit(function(e){
+            e.preventDefault();
+            let formData = new FormData(this);
+            $.ajax({
+                url: '/admin/quanco',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(res) {
+                    $('#addQuancoModal').modal('hide');
+                    $('[data-url="/admin/quanco-partial"]').click();
+                },
+                error: function() {
+                    alert('Thêm thất bại!');
+                }
+            });
+        });
+
+        // Mở modal sửa quân cờ
+        $(document).on('click', '.btn-edit-quanco', function() {
+            const $row = $(this).closest('tr');
+            const id = $row.data('id');
+            $('#editQuancoId').val(id);
+            $('#editQuancoForm')[0].reset();
+            var modal = new bootstrap.Modal(document.getElementById('editQuancoModal'));
+            modal.show();
+        });
+
+        // Submit form sửa quân cờ
+        $('#editQuancoForm').submit(function(e){
+            e.preventDefault();
+            const id = $('#editQuancoId').val();
+            let formData = new FormData(this);
+            $.ajax({
+                url: '/admin/quanco/' + id,
+                type: 'PUT',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(res) {
+                    $('#editQuancoModal').modal('hide');
+                    $('[data-url="/admin/quanco-partial"]').click();
+                },
+                error: function() {
+                    alert('Sửa thất bại!');
+                }
+            });
+        });
+
+        $(function(){
+            // Khi trang vừa load, tự động click vào menu "Quản lý người dùng"
+            $('[data-url="/admin/users-partial"]').trigger('click');
+        });
+    </script>
+</body>
+</html>

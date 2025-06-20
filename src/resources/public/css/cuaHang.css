@@ -1,0 +1,128 @@
+.parent {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 8px;
+}
+    
+.div1 {
+    grid-row: span 5 / span 5;
+    grid-column: span 1 / span 1;
+}
+
+
+.div4 {
+    grid-column: span 5 / span 5;
+    grid-row: span 5 / span 5;
+    grid-column-start: 2;
+    grid-row-start: 1;
+    border-left: 1px solid #ccc;
+    overflow-x: hidden;
+    /* overflow-y: auto; */
+}
+        
+
+
+#khungCH {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3%;
+    margin-bottom: 20%;
+    width: 20vh;
+    height: 20vh;;
+    background-size: cover;       
+    background-position: center;  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#avatarCH {
+    width: 16vh;
+    height: 16vh;
+    object-fit: contain;
+}
+
+
+.containerCH {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: flex-start;
+    overflow-y: scroll;
+    margin-left: 5vh;
+    height: 80vh;
+}
+
+.itemCH {
+    width: calc(20% - 16px); /* 4 item trên một hàng, trừ khoảng cách gap */
+    height: 40vh;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.itemCH:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.imgCH {
+    width: 100%;
+    height: 75%;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border: #ccc 1px solid;
+}
+
+.suDungImg {
+    height: 15%;
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+.suDungImg:hover {
+    background-color: #0056b3;
+}
+
+
+.avatarUser{
+    width: 8vh;
+    height: 8vh;
+    object-fit: contain;
+}
+
+.khungUser {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -1%;
+    margin-bottom: 20%;
+    width: 10vh;
+    height: 10vh;;
+    background-size: cover;       
+    background-position: center;  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.match{
+    width: 40%;
+    height: 18vh;
+    padding: 10px;
+    border: #0056b3 1px solid;
+    border-radius: 10px;
+    background-color: #f0f8ff;
+    float: left;
+    margin: 20px;
+}

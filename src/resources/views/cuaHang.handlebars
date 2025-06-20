@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/cuaHang.css">
+    
+</head>
+<body>
+    
+    <div class="parent">
+        <div class="div1">
+            <div id="khungCH">
+                <img id="avatarCH" src="/img/avatar/1.jpg" alt="Avatar">
+            </div>
+            
+            <button style="display: block; width: 60%; margin-left: auto; margin-right: auto; margin-top: 3vh;" id="btnDoiAvatar" class="btn btn-primary">
+                Đổi Avatar
+            </button>
+            <button style="display: block; width: 60%; margin-left: auto; margin-right: auto; margin-top: 3vh;" id="btnDoiKhung" class="btn btn-primary">
+                Đổi Khung
+            </button>
+            <button style="display: block; width: 60%; margin-left: auto; margin-right: auto; margin-top: 3vh;" id="btnDoiQC" class="btn btn-primary">
+                Đổi Quân Cờ
+            </button>
+            <button style="display: block; width: 60%; margin-left: auto; margin-right: auto; margin-top: 3vh;" id="btnDoiThongTinCN" class="btn btn-primary">
+                Đổi thông tin cá nhân
+            </button>
+            <button style="display: block; width: 60%; margin-left: auto; margin-right: auto; margin-top: 3vh;" id="btnLichSuDau" class="btn btn-primary">
+                Lịch sử đấu
+            </button>
+        </div>
+        <div class="div4">
+            <h3 id="h3" style="margin: 10px;">Cửa Hàng</h3>
+            <div id="cuaHang" class="containerCH">
+                
+            </div>
+            
+            <div id="doiTTCN" style="width: 40%; margin-left: 3%; margin-top: 2%; display: none;">
+                <button id ="btnDoiTenNguoiDung" class="btn btn-primary">Đổi tên người dùng</button>
+                <button id="btnDoiMatKhau" class="btn btn-primary">Đổi mật khẩu</button>
+                <br>
+                <br>
+                <p id="loiDoiTTCN" class="text-danger" style="display: none;"></p>
+                <p id="thanhCongDoiTTCN" class="text-success" style="display: none;"></p>
+                <div id="doiTenNguoiDung" style="margin-top: 2%;">
+                    Tên người dùng:
+                    <input type="text" id="tenNguoiDung" placeholder="Tên người dùng" class="form-control">
+                    <button id="submitDoiTen" type="submit" class="btn btn-primary" style="margin-top: 2%;">Lưu</button>
+                </div>
+                <div id="doiMatKhau" style="display: none;">
+                    Nhập mật khẩu
+                    <input type="password" name="" id="passwordNguoiDung" placeholder="......" class="form-control">
+                    <br>
+                    Nhập lại mật khẩu
+                    <input type="password" name="" id="repasswordNguoiDung" placeholder="......" class="form-control">
+                    <button id="submitDoiMK" type="submit" class="btn btn-primary" style="margin-top: 2%;">Lưu</button>
+                </div>
+            </div>
+            
+
+            <div id="lichSuDau" style="width: 100%; height: 80vh; margin-left: 3%; margin-top: 2%; display: none; overflow-y: auto;">
+
+            </div>
+        </div>
+
+    </div>
+    
+</body>
+    <script>
+        $(document).ready(function(){
+            username = null;
+            //{{#if username}}
+            //    username = "{{username}}";
+            //{{/if}}
+
+            {{#if tenNguoiDung}}
+                username = "{{tenNguoiDung}}";
+                quanX = "{{x}}";
+                quanO = "{{o}}";
+                idUser = "{{idUser}}";
+            {{/if}}
+
+            {{#if imgAvt}}
+                $("#avatarCH").attr("src", "/img/avatar/{{imgAvt}}");
+            {{/if}}
+
+            {{#if imgKhung}}
+                $("#khungCH").css("background-image", "url('../img/KHUNG/{{imgKhung}}')");
+            {{/if}}
+
+        })
+    </script>
+    <script src="/js/cuaHang.js"></script>
+</html>

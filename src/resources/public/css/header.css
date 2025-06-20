@@ -1,0 +1,87 @@
+.outer-frame-avatar {
+    margin-left: auto;
+    margin-right: 20px;
+    width: 32px;
+    height: 32px;
+    background-image: url('../img/KHUNG/1.gif'); /* Ảnh làm khung */
+    background-size: cover;       /* phủ đầy khung */
+    background-position: center;  /* căn giữa */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.inner-img-avatar {
+    width: 24px;  /* hoặc dùng max-width: 100% nếu muốn tự co giãn */
+    height: 24px;
+    object-fit: contain;
+}
+
+
+.avatar-menu {
+    position: fixed;
+    top: 7%;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    list-style: none;
+    display: none; /* Ẩn ban đầu */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+}
+
+.avatar-menu li {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.avatar-menu li:hover {
+    background-color: #f0f0f0;
+}
+
+
+#btnDangXuat{
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: -3px;
+    width: 100%;
+}
+
+#btnDADD {
+    background-color: #4CAF50;     /* Màu xanh lá */
+    color: white;                  /* Màu chữ trắng */
+    padding: 5px 15px;            /* Khoảng cách bên trong */
+    border: none;                  /* Bỏ viền */
+    border-radius: 5px;            /* Bo góc */
+    cursor: pointer;               /* Biểu tượng tay khi hover */
+    font-size: 16px;               /* Cỡ chữ */
+    transition: 0.3s;              /* Hiệu ứng mượt */
+}
+
+#btnDADD:hover {
+    background-color: #45a049;     /* Màu khi rê chuột */
+}
+
+#btnAdmin {
+    background-color: #343a40;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 15px;
+    font-weight: 500;
+    font-size: 16px;
+    transition: background-color 0.2s, color 0.2s;
+    cursor: pointer;
+    width: 100%;
+}
+
+#btnAdmin:hover {
+    background-color: #495057;
+    color: #ffc107;
+}
+

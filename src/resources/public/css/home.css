@@ -1,6 +1,6 @@
-#btnTaoPhong{
-    height: 5vh;
-    width: 15vh;
+#btnMoTaoPhong{
+    height: 7vh;
+    width: 17vh;
     position: relative;
     display: inline-block;
     border-radius: 10px;
@@ -9,7 +9,7 @@
     transition: color 0.3s ease;
 }
 
-#btnTaoPhong::before {
+#btnMoTaoPhong::before {
     content: '';
     position: absolute;
     top: var(--y);
@@ -23,11 +23,11 @@
     z-index: 0; 
 }
 
-#btnTaoPhong:hover::before {
+#btnMoTaoPhong:hover::before {
     transform: translate(-50%, -50%) scale(1);
 }
 
-#btnTaoPhong:hover {
+#btnMoTaoPhong:hover {
     border: 1px solid black; /* Đổi màu viền thành đen khi hover */
     border-radius: 10px;
     color: black; /* Đổi màu chữ thành đen khi hover */
@@ -35,7 +35,277 @@
 }
 
 /* Đảm bảo chữ không bị che khuất */
-#btnTaoPhong span {
+#btnMoTaoPhong span {
     position: relative; /* Đặt vị trí tương đối cho chữ */
     z-index: 2; /* Đặt z-index cao hơn để chữ luôn hiển thị */
 }
+
+#banCo{
+    /* border: 20px solid transparent; 
+    border-image: url('../img/BC_RP/BC2.png') 30 stretch; 
+    border-collapse: collapse; */
+    position: relative;
+    margin-top: 10%;
+    
+}
+
+#banCo::before{
+    content: "";
+    position: absolute;
+    top: -10%;
+    left: -10%;
+    right: -10%;
+    bottom: -10%;
+
+    /* background-image: var(--bg-image, url('../img/BC_RP/BC2.png')); */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 120%;
+
+    z-index: -1;
+}
+
+
+#trangNhapMatKhau{
+    position: absolute;
+    top: 15%;
+    left: 40%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    height: 30%;
+    background-color: rgba(255, 255, 255, 0.8); /* Màu nền trắng với độ trong suốt */
+    border-radius: 10px; /* Bo tròn góc */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+    padding: 40px; /* Khoảng cách bên trong */
+    background-color: rgb(219, 221, 223);
+}
+
+#dongTrangNhapMatKhau{
+    position: absolute;
+    top: 0%;
+    right: -10%;
+    width: 20px;
+    height: 20px;
+    background-color: red; /* Màu nền đỏ */
+    color: white; /* Màu chữ trắng */
+    border-radius: 50%; /* Bo tròn thành hình tròn */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer; /* Con trỏ chuột khi hover */
+    border: none;
+    margin-top: -35px;
+}
+
+.itemHeader{
+    margin-right: 10px;
+    padding: 4px 10px;
+    border: 1px solid #cce4ff;
+    border-radius: 10px;
+}
+
+.player span {
+    position: relative;
+    font-weight: 800;
+    /* color: white; */
+    z-index: 1;
+}
+
+
+.outer-frame {
+    width: 55px;
+    height: 55px;
+    background-size: cover;       /* phủ đầy khung */
+    background-position: center;  /* căn giữa */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.inner-img {
+    width: 40px;  /* hoặc dùng max-width: 100% nếu muốn tự co giãn */
+    height: 40px;
+    object-fit: contain;
+}
+
+
+.btn-dau-hang {
+    float: right;
+    margin-top: -10px;
+    padding: 10px 20px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.btn-dau-hang:hover {
+    background-color: #e60000;
+    transform: scale(1.05);
+}
+
+.btn-dau-hang:active {
+    transform: scale(0.97);
+}
+
+
+
+
+
+
+.khung-bxh {
+    margin-right: auto;
+    width: 32px;
+    height: 32px;
+    background-size: cover;       /* phủ đầy khung */
+    background-position: center;  /* căn giữa */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+.avatar-bxh {
+    width: 24px;  /* hoặc dùng max-width: 100% nếu muốn tự co giãn */
+    height: 24px;
+    object-fit: contain;
+}
+
+
+
+
+
+.btn-choi-lai {
+    padding: 12px 24px;
+    margin-top: -10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #28a745;
+    color: white;
+    float: left;
+}
+
+.btn-choi-lai:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+/* Nút Rời Phòng - màu đỏ */
+.btn-roi-phong {
+    padding: 12px 24px;
+    margin-top: -10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #dc3545;
+    color: white;
+    float: right;
+}
+
+.btn-roi-phong:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+}
+
+
+#ChuongThongBao{
+    width: 5%; 
+    float: right; 
+    margin-top: -55px;
+}
+
+#btnThuongTruc{
+    /* width: 15%;  */
+    float: right; 
+    margin-top: -55px;
+    margin-right: 5%;
+    background-color: white;
+    color: black;
+    border: 1px solid #021106;
+    border-radius: 25px;
+    padding: 5px 10px;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0 2px 6px rgba(40,167,69,0.15);
+    transition: background 0.2s, transform 0.2s;
+    margin-bottom: 15px;
+}
+
+#khungThongBao{
+    position: absolute;
+    top: 10%;
+    left: 65%;
+    width: 33%;
+    /* height: 20%; */
+    background-color: rgb(255, 255, 255); /* Màu nền trắng với độ trong suốt */
+    border-radius: 10px; /* Bo tròn góc */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng */
+    padding: 20px; /* Khoảng cách bên trong */
+    height: 50%;
+    overflow-y: auto;
+    border: 1px solid #000102;
+    
+    z-index: 1000; /* Đặt z-index cao để hiển thị trên các phần tử khác */
+}
+
+.khungMoi{
+    background-color: white;
+    border: 1px solid #000102;
+    border-radius: 10px;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+.chapNhanMoi {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 6px 18px;
+    border-radius: 4px;
+    /* margin-left: 10px; */
+    margin-right: 10px;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+.chapNhanMoi:hover {
+    background-color: #218838;
+}
+
+.tuChoiMoi {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 6px 18px;
+    margin-left: 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+.tuChoiMoi:hover {
+    background-color: #b52a37;
+}
+
+.btnMoiUser{
+    margin-top: -30px;
+    float: right;
+}
+
+/* .p{
+    position: relative;
+    width: 20%;
+    left: 10%;
+    top: 10%;
+} */

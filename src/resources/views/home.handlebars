@@ -6,20 +6,21 @@
     <title>Document</title>
     <link rel="stylesheet" href="css/home.css">
     <script src="/socket.io/socket.io.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
     <script src="/js/gameCaro.js"></script>
-    {{!-- <script src="/js/botCaro.js"></script> --}}
+    <script src="/js/botCaroMinimax.js"></script>
     <script src="/js/home.js"></script>
+    <script src="/js/home_phong.js"></script>
+    <script src="/js/home_game.js"></script>
 </head>
-<body>
+<body >
     <div class="container-fluid mt-4">
-        <div class="row">
-            <div class="col-md-3">
+        <div class="row" style="margin-top: -24px;">
+            <div id="divLeft" class="col-md-3" style="overflow-y: hidden; height: 93vh; padding: 0;">
                 <div class="card mb-3">
                     <div id="danhSachUserSpan" class="card-header">
                         <h5 >Danh Sách Online</h5>
                     </div>
-                    <div id="danhSachUserOnline" class="list-group" style="height: 60vh;">
+                    <div id="danhSachUserOnline" class="list-group" style="height: 62vh; overflow-y: auto;">
                         
                     </div>
                 </div>
@@ -28,16 +29,35 @@
                     <div id="xepHangSpan" class="card-header">
                         <h5>Xếp Hạng</h5>
                     </div>
-                    <div id="xepHang" lass="card-body" style="height: 60vh;">
-                        <ul class="list-group">
-                            <li class="list-group-item">Người chơi 1: 100 điểm</li>
-                            <li class="list-group-item">Người chơi 2: 80 điểm</li>
-                            <!-- Thêm các mục xếp hạng khác -->
+                    <div id="xepHang" lass="card-body" style="height: 62vh;">
+                        <ul id="listBXH" class="list-group" style="height: 92%;">
                         </ul>
+                        <div id="xepHangCN" class="list-group-item" style="background-color: #cadff3;">
+                            <span id="soXHCN" style='float:left; margin-right: 10px;'></span>
+                            <div id="khungCN" class="khung-bxh" style="margin-top: -1px;">
+                                <img id="avatarCN" class="avatar-bxh" alt="Avatar">
+                            </div>
+                            <span id="thongTinXHCN" style= 'display: block; margin-top: -30px;margin-left: 60px;'></span>
+                        </div>
                     </div>
                 </div>
 
-                <div id="chatTongHeight" class="card d-flex flex-column" style="height: 48vh; width: 46vh">
+                <div id="chatTongHeight" class="card mb-3" >
+                    <div id="chatTongSpan" class="card-header">
+                        <h5>Chat Tổng</h5>
+                    </div>
+                    <div id="chatTongF" class="card-body p-0" style=" overflow: hidden;">
+                        <div id="chatTong" class="p-3" style="overflow-y: auto; height: 52vh;"></div>
+                        <div class="input-group p-2 border-top">
+                            <input type="text" class="form-control" id="inputChatTong" placeholder="Nhập tin nhắn">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" id="btnGuiChatTong">Gửi</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{!-- <div id="chatTongHeight" class="card d-flex flex-column" style="width: 46vh ;">
                     <div id="chatTongSpan" class="card-header">
                         <h5>Chat Tổng</h5>
                     </div>
@@ -50,26 +70,78 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
             
-            <div class="col-md-9">
-                <div id="menuPhong">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <button class="btn btn-success" id="btnTaoPhong">
+            <div id="divPhong" class="col-md-9" style="overflow-y: hidden; height: 93vh;">
+                <div id="headerPhong" class="d-flex align-items-center border-bottom mb-3" style="padding: 10px; padding-left: 0px; width: 80%; overflow-y: auto;"> 
+                    <div class="itemHeader" id="trangChuHeader">
+                        <span>Trang Chủ</span>
+                    </div>
+                    <div id="menuHeader" class="d-flex align-items-center">
+
+                    </div>
+                </div>
+
+                <button id="btnThuongTruc">Thường trực</button>
+
+                <div id="ChuongThongBao" style="" >
+                    <img width="50px" src="/img/chuong.png" alt="">
+                </div>
+
+                <div id="khungThongBao" style="display: none;">
+
+                </div>
+
+
+                <div id="divTaoPhong">
+                    <div class="taoPhong">
+                        <button class="btn btn-success" id="btnTaoPhong" style="margin-bottom: 20px;">
                             <span>
-                                Tạo phòng
+                                Tạo Phòng
                             </span>
                         </button>
-                        <input type="text" class="form-control" id="tenPhong" placeholder="Tên phòng">
+
+                        <input type="text" class="form-control" style="width: 70%; margin-bottom: 20px;" id="tenPhong" placeholder="Nhập tên phòng">
+
+                        <input type="checkbox" name="CoMatKhau" id="CoMatKhau" value="true">
+                        <label for="matKhau">Có mật khẩu</label>
+
+                        <input type="password" class="form-control" style="width: 70%;" id="matKhauPhong" placeholder="Nhập mật khẩu" disabled>
+                    </div>  
+                </div>
+
+
+                <div id="menuPhong">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <button class="btn btn-success" id="btnMoTaoPhong">
+                            <span>
+                                Tạo Phòng
+                            </span>
+                        </button>
                     </div>
-                    <div id="danhSachPhong" class="list-group mb-3">
+                    <div id="danhSachPhong" class="list-group mb-3" style="height: 70vh; overflow-y: auto;">
                 </div>
                     
+                <div id="trangNhapMatKhau">
+                    <div class="input-group mb-3">
+                        <button id="dongTrangNhapMatKhau">X</button>
+                    
+                        <input type="text" class="form-control"  id="idPhongNMK" hidden>
+
+                        <input type="password" class="form-control"  id="matKhauPhongNMK" placeholder="Nhập mật khẩu">
+                        <br>
+                        <button class="btn btn-primary" id="btnXacNhanMatKhau">Xác nhận</button>
+                    </div>
+                    <div id="thongBaoMatKhauSai" class="alert alert-danger" role="alert">
+                        Mật khẩu không đúng!    
+                    </div>
                 </div>
-                <div id="phong" >  {{!-- class="d-flex" --}}
-                    <div id="hangCho" class="rightPhong flex-fill border p-2 d-flex flex-column">
+
+                </div>
+                <div id="phong" > 
+                    <div id="hangCho" class="rightPhong flex-fill border p-2 flex-column">
                         <div id="thongTinPhong" class="d-flex justify-content-between align-items-center p-3 bg-light rounded mb-3">
                             <div class="d-flex gap-3">
                                 <p id="soPhongTTP" class="h6 mb-0">Phòng: </p>
@@ -77,7 +149,8 @@
                                 <p id="tenPhongTTP" class="h6 mb-0">Tên phòng: </p>
                             </div>
                             <div class="d-flex gap-2">
-                                <button class="btn btn-primary" id="btnThemBot">Thêm Bot</button>
+                                <button class="btn btn-primary" style="width: 15vh;" id="btnThemBot">Thêm Bot</button>
+                                <button class="btn btn-warning" style="width: 15vh;" id="btnXoaBot">Xoá Bot</button>
                                 &emsp;
                                 <button class="btn btn-success" style="width: 15vh;" id="btnSanSang">Sẵn Sàng</button>
                                 <button class="btn btn-warning" style="width: 15vh;" id="btnHuy">Huỷ</button>
@@ -100,9 +173,93 @@
                         </div>
                     </div>
 
+                    
 
-                    <div id="game" class="leftPhong flex-fill border p-2">
-                        <table id="banCo" class="table table-bordered border-dark mx-auto" style="width: auto;">
+                    <div id="game" class="leftPhong flex-fill">
+                        <div id="thongTinNguoiChoi">
+
+                            <div style="width: 52%; float: left;"  >
+                                <div id="user3vs" style="display: grid; width: 40%; float:left; justify-content: center; text-align: center;"> 
+                                    {{!-- transition: all 0.5s ease; --}}
+                                    <div id="khunguser3" class="outer-frame">
+                                        <img id="imguser3" src="/img/avatar/1.jpg"  class="inner-img">
+                                    </div>
+                                    <p class="player active"> <span id="user3">...</span></p> 
+                                </div>
+
+                                <div id="vs" style="display: grid; width: 20%; float:left; justify-content: center; text-align: center; margin-top: 20px;">
+                                    VS
+                                </div>
+
+                                <div id="user4vs" style="display: grid; width: 40%; float:left; justify-content: center; text-align: center; ">
+                                    <div id="khunguser4" class="outer-frame">
+                                        <img id="imguser4" src="/img/avatar/1.jpg"  class="inner-img">
+                                    </div>
+                                    <p class="player active"> <span id="user4">...</span></p> 
+                                </div>
+
+                                <div id="tbWin" style="display: grid; width: 48%; float:left; justify-content: left; text-align: left; margin-top: 20px; padding-left: 20px;">
+                                    Win
+                                </div>
+                            </div>
+                            
+
+                            <div style="width: 30%; margin-top: 50px; float:right;">
+                                <span id="thongBao" style="display: inline-block; float: left;">Tới lượt bạn</span>
+                                <button id="btnDauHang" class="btn-dau-hang">Đầu Hàng</button>
+                                <button id="btnChoiLai" class="btn-choi-lai" style="display: none;">Chơi Lại</button>
+                                <button id="btnRoiPhong2" class="btn-roi-phong" style="display: none;">Rời Phòng</button>
+                            </div>
+                        </div>
+                        <table id="banCo" class="table table-bordered border-dark" style="width: 50%; margin-top: -1px; margin-left: 10px ; float:left;">
+
+                        </table>
+                        <div class="d-flex flex-column flex-grow-1" style="width: 30%; float:right;" >
+                            <div id="khungChatTran" class="border p-2 mb-2 flex-grow-1" style="height: 50vh; overflow-y: auto;" ></div>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="chatTran" placeholder="Nhập tin nhắn">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" id="btnGuiChatTran">Gửi</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="banCoThuongTruc" style="display: none; height: 80vh; overflow-y: auto;">
+                    <br> 
+                    <div id="divbanCo1" style="width: 25%; float: left;">
+                        <span id="banCo1Ten">Ban co 1</span>
+                        <span id="banCo1TT" style="display: inline-block; float: right;">Toi luc ban</span>
+                        <p></p>
+                        <table id="banCo1" class="table table-bordered border-dark" style="width: 20%; margin-top: -1px; margin-left: 3px ;">
+
+                        </table>
+                    </div>
+                    
+                    <div id="divbanCo2" style="width: 25%; float: left;">
+                        <span id="banCo2Ten">Ban co 1</span>
+                        <span id="banCo2TT" style="display: inline-block; float: right;">Toi luc ban</span>
+                        <p></p>
+                        <table id="banCo2" class="table table-bordered border-dark" style="width: 20%; margin-top: -1px; margin-left: 3px ;">
+
+                        </table>
+                    </div>
+
+                    <div id="divbanCo3" style="width: 25%; float: left;">
+                        <span id="banCo3Ten">Ban co 1</span>
+                        <span id="banCo3TT" style="display: inline-block; float: right;">Toi luc ban</span>
+                        <p></p>
+                        <table id="banCo3" class="table table-bordered border-dark" style="width: 20%; margin-top: -1px; margin-left: 3px ;">
+
+                        </table>
+                    </div>
+
+                    <div id="divbanCo4" style="width: 25%; float: left;">
+                        <span id="banCo4Ten">Ban co 1</span>
+                        <span id="banCo4TT" style="display: inline-block; float: right;">Toi luc ban</span>
+                        <p></p>
+                        <table id="banCo4" class="table table-bordered border-dark" style="width: 20%; margin-top: -1px; margin-left: 3px ;">
 
                         </table>
                     </div>
@@ -112,8 +269,13 @@
     </div>
     <script>
         $(document).ready(function(){
-            {{#if username}}
-                socket.emit("username","{{username}}")
+            //{{#if username}}
+            //   socket.emit("username","{{username}}")
+            //{{/if}}
+            {{#if tenNguoiDung}}
+                socket.emit("username","{{tenNguoiDung}}")
+                quanX = "{{x}}";
+                quanO = "{{o}}";
             {{/if}}
         })
     </script>

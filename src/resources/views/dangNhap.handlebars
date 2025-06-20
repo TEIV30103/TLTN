@@ -3,23 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Đăng nhập</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            background: #e9ecef;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .login-container {
+            height: 75vh;  
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-box {
+            background: #fff;
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            box-shadow: 0 0 16px rgba(0,0,0,0.08);
+            width: 100%;
+            max-width: 350px;
+        }
+        .login-box .form-control {
+            margin-bottom: 1rem;
+        }
+        .login-box .btn {
+            width: 100%;
+        }
+        .login-box h1 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <div class="login">
-        <h1>Login</h1>
-        <form action="" method="post">
-            <label for="username">
-                <!-- font awesome icon -->
-                <i class="fas fa-user"></i>
-            </label>
-            <input type="text" name="username" placeholder="Username" id="username" required>
-            <label for="password">
-                <i class="fas fa-lock"></i>
-            </label>
-            <input type="password" name="password" placeholder="Password" id="password" required>
-            <input type="submit" value="Login">
-        </form>
+    <div class="login-container">
+        <div class="login-box">
+            <h1>Đăng nhập</h1>
+            {{#if error}}
+                <div class="alert alert-danger py-2 text-center" role="alert">
+                    {{error}}
+                </div>
+            {{/if}}
+            <form action="" method="post">
+                <div class="mb-3">
+                    <label for="username" class="form-label">
+                        <i class="fas fa-user"></i> Tên đăng nhập
+                    </label>
+                    <input type="text" class="form-control" name="username" id="username" placeholder="Nhập tên đăng nhập" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">
+                        <i class="fas fa-lock"></i> Mật khẩu
+                    </label>
+                    <input type="password" class="form-control" name="password" id="password" placeholder="Nhập mật khẩu" required>
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">Đăng nhập</button>
+                <div class="text-center mt-2">
+                    <small>Bạn chưa có tài khoản? <a href="/dangKy">Đăng ký</a></small>
+                </div>
+            </form>
+        </div>
     </div>
 </body>
 </html>
